@@ -1,11 +1,9 @@
 
-
-````markdown
 # 🛰️ EIGRP Simple Simulation
 
 A minimal yet practical Cisco Packet Tracer project demonstrating **EIGRP (Enhanced Interior Gateway Routing Protocol)** configuration between multiple routers in a small network topology.
 
-![Topology Preview](assets/topology.png)
+![Topology Preview](Assets/topology.png)
 
 ---
 
@@ -87,8 +85,8 @@ show ip protocols
 
 | Router      | CLI Output                      |
 | ----------- | ------------------------------- |
-| **Router0** | ![Router0 CLI](assets/CLI1.png) |
-| **Router1** | ![Router1 CLI](assets/CLI2.png) |
+| **Router0** | ![Router0 CLI](Assets/CLI1.png) |
+| **Router1** | ![Router1 CLI](Assets/CLI2.png) |
 
 ---
 
@@ -98,7 +96,7 @@ After successful EIGRP configuration, test the connection between PCs in both ne
 
 Example successful ping:
 
-![Ping Success](assets/Success.png)
+![Ping Success](Assets/Success.png)
 
 ---
 
@@ -151,11 +149,3 @@ By completing this lab, you’ll understand how to:
 > Just open the `.pkt` file in Cisco Packet Tracer and start exploring!
 
 ---
-
-```
-
----
-
-💡 Tinggal copy ke `README.md` kamu — GitHub bakal otomatis nampilin semua foto dari `/assets/`, lengkap dan profesional.  
-Mau aku tambahkan **badge GitHub-style** (misal: Cisco Packet Tracer, EIGRP, Networking) di bagian atas biar tampil lebih keren lagi?
-```
