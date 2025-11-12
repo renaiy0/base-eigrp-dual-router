@@ -169,6 +169,24 @@ This example uses the following addressing scheme:
 
 ---
 
+---
+
+## 💻 Full CLI Base Configuration (Dual Router Setup)
+
+Below is the complete **base configuration** for a simple **EIGRP dual-router** topology.  
+This example uses the following addressing scheme:
+
+| Device | Interface | IP Address | Description |
+|--------|------------|-------------|--------------|
+| **Router 1 (R1)** | FastEthernet0/0 | 192.168.10.1 | LAN for PC1 |
+|                   | Serial0/0/0 | 10.10.10.1 | Link to Router 2 |
+| **Router 2 (R2)** | FastEthernet0/0 | 192.168.20.1 | LAN for PC2 |
+|                   | Serial0/0/0 | 10.10.10.2 | Link to Router 1 |
+| **PC1** | NIC | 192.168.10.2 / 24 | Connected to R1 |
+| **PC2** | NIC | 192.168.20.2 / 24 | Connected to R2 |
+
+---
+
 ### 🧩 Router 1 (R1) – Configuration
 
 ```bash
@@ -198,4 +216,83 @@ Router(config-router)# end
 ! Verify and save
 Router# show ip route
 Router# write memory
+````
 
+---
+
+### 🧩 Router 2 (R2) – Configuration
+
+```bash
+Router> enable
+Router# configure terminal
+
+! Configure LAN Interface
+Router(config)# interface FastEthernet0/0
+Router(config-if)# ip address 192.168.20.1 255.255.255.0
+Router(config-if)# no shutdown
+Router(config-if)# exit
+
+! Configure Serial Link to Router 1
+Router(config)# interface Serial0/0/0
+Router(config-if)# ip address 10.10.10.2 255.255.255.0
+Router(config-if)# no shutdown
+Router(config-if)# exit
+
+! Configure EIGRP (Autonomous System 100)
+Router(config)# router eigrp 100
+Router(config-router)# network 192.168.20.0 0.0.0.255
+Router(config-router)# network 10.10.10.0 0.0.0.255
+Router(config-router)# no auto-summary
+Router(config-router)# end
+
+! Verify and save
+Router# show ip route
+Router# write memory
+```
+
+---
+
+### 🧠 PC Configuration
+
+#### PC1 (connected to R1)
+
+```
+IP Address: 192.168.10.2  
+Subnet Mask: 255.255.255.0  
+Default Gateway: 192.168.10.1
+```
+
+#### PC2 (connected to R2)
+
+```
+IP Address: 192.168.20.2  
+Subnet Mask: 255.255.255.0  
+Default Gateway: 192.168.20.1
+```
+
+---
+
+### 🧪 Verification Commands
+
+After both routers are configured, verify EIGRP operation:
+
+```bash
+show ip route
+show ip eigrp neighbors
+show ip protocols
+```
+
+---
+
+### ✅ Expected Results
+
+1. **EIGRP neighbor adjacency** should form between R1 and R2.
+2. **Routing table** on both routers should contain each other’s LAN networks.
+3. **Ping from PC1 → PC2** should return successful replies.
+
+Example successful connectivity test:
+![Ping Success](Assets/Success.png)
+
+---
+
+```
